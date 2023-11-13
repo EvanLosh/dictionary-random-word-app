@@ -18,15 +18,17 @@ search.addEventListener('submit', (e) => {
     e.preventDefault()
     word.innerHTML = ''
     word1 = input.value
+    let correctCase = word1.charAt(0).toUpperCase() + word1.slice(1);
     // uppercase the first letter of the word
     const wordTag = document.createElement('p')
-    wordTag.innerText = word1
+    wordTag.innerText = correctCase
     word.appendChild(wordTag)
 
     const wordHistory = document.createElement('li')
-    wordHistory.innerText = word1
+    wordHistory.innerText = correctCase
     wordHistory.addEventListener('click', (e) => {
-        console.log(wordHistory)
+        e.preventDefault()
+        console.log("i was clicked")
     })
     history.appendChild(wordHistory)
     // make word history persist
