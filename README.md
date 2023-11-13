@@ -8,7 +8,10 @@ Trello link:
 https://trello.com/invite/b/wdtQb9WM/ATTId6513feac452ea81be14c09d00a1d833B6DB5929/email-template-board
 
 Example url for getting a word
-https://api.dictionaryapi.dev/api/v2/entries/en/<word>
+https://api.dictionaryapi.dev/api/v2/entries/en/word
+
+Example url for getting the whole dictionary
+https://api.dictionaryapi.dev/api/v2/entries/en/
 
 Deliverable #1
 Create wireframe/boilerplate HTML page
