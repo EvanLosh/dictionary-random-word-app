@@ -23,10 +23,10 @@ Deliverable #1
 Create wireframe/boilerplate HTML page
 
 Deliverable #2
-Add a button fetch a random word from the API
+Add a form to search for a word and fetch it from the dictionary API
 
 Deliverable #3
-Display the word that was fetched. Include pronunciation, definitions, synonyms, antonyms.
+Display the word that was fetched. Include pronunciation, definitions, synonyms.
 
 Deliverable #4
 Add a word history list. Whenever a word is displayed, add it to the list. (not persisting)
@@ -37,11 +37,16 @@ Add a saved word list and a button to add the current word to the saved word lis
 Deliverable #6
 Click on a word from the list to display it again
 
-Stretch goal #1 Make the saved word list persist. 
+Deliverable #7 
+Change style of a word in the history when hovering mouse over it
 
-Stretch goal #2 When the page loads, display the word of the day (persists when reloading the page, changes from day to day)
+Deliverable #8 Make the saved word list persist (when the page is refreshed, load saved words from db.json and populate them on the webpage again) 
 
-Stretch goal #3 User can select a letter, and new words will start with that letter
+Stretch goal #1 When the page loads, display the word of the day (persists when reloading the page, changes from day to day)
+
+Stretch goal #2 In the saved words list, drag and drop words to reorder them.
+
+Stretch goal #3 Latest 10 words in the history will persist
 
 
 
