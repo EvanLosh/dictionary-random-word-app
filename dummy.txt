@@ -1,11 +1,8 @@
 arrisways
 arriswise
 arrival
-arrival draft
 arrivance
-arrivé
 arrive
-arrive at
 arrived
 arrivederci
 arriver
@@ -26,42 +23,23 @@ arrojadite
 arrondi
 arrondissement
 arrow
-arrow arum
-arrow-back chair
-arrow crab
 arrowed
-arrow grass
-arrow-grass family
 arrowhead
-arrow horn
 arrowing
 arrowleaf
-arrowleaf balsamroot
 arrowplate
 arrowpoint
-arrow rest
 arrowroot
-arrowroot family
 arrowroots
 arrows
 arrowstone
-arrow straightener
-arrow-toothed halibut
-arrow-tooth flounder
-arrowtooth flounder
-arrowtooth halibut
 arrowweed
 arrowwood
 arrowworm
-arrow worm
 arrowy
 arroyo
-arroyo grape
 arroyos
-arroyo toad
-arroyo willow
 arroz
-arroz con pollo
 arrs
 ARRT
 arrythmia
@@ -69,31 +47,18 @@ Arsacid
 Arsacidae
 Arsacides
 Arsacids
-ars antiqua
-ars artium
 arse
 arsed
 arsedine
 arsehole
 arseholes
-Arsem furnace
-arsen-
+arsen
 arsenal
 arsenate
 arsenian
 arsenic
 arsenical
-arsenical antimony
-arsenical pyrites
-arsenic antidote
 arsenicate
-arsenic bloom
-arsenic disulfide
-arsenic monosulfide
-arsenic oxide
-arsenic pentoxide
-arsenic trichloride
-arsenic trisulfide
 arsenide
 arseniferous
 arsenillo
@@ -101,77 +66,51 @@ arseniopleite
 arseniosiderite
 arsenious
 arsenite
-arseniuretted hydrogen
-arseno-
+arseno
 arsenobenzene
 arsenobismite
 arsenoclasite
 arsenolite
 arsenopyrite
 arsenoso
-arsenoso-
+arsenoso
 arses
 arsesmart
-ars est celare artem
 arsey
-ars gratia artis
 arshin
 arshine
 arsine
-arsinic acid
-arsino-
+arsino
 Arsinoitherium
 arsis
 arsle
-ars longa, vita brevis
-Ars Magna
-ars nova
 arsoite
 arson
 arsonate
 arsonation
-arsonic acid
 arsonist
 arsono
 arsonous
 arsphenamine
-ars poetica
-ars poeticas
-ars simia naturae
-arsy-varsy
-arsy-versy
 art
--art
 artal
-art and part
-art brown
-art brut
 ARTCC
-art deco
-art direct
-art director
-art editor
 artefact
 artel
 artemia
 Artemis
 artemisia
-artemisia green
 artemon
 artemones
 Artenkreis
 Artenkreise
 Artenkreises
-arte povera
-Arte Povera
 arter
-arteri-
+arteri
 arterial
-arterial bulb
-arterial gland
 arterially
 arteries
-arterio-
+arterio
 arteriogram
 arteriographic
 arteriographies
@@ -186,20 +125,10 @@ arteritides
 arteritis
 artery
 artesian
-artesian well
-art film
-art for art's sake
-art form
 artful
 artfully
 artfulness
-art glass
-art gray
-art green
-art historical
-art historically
-art house
-arthr-
+arthr
 arthra
 arthralgia
 arthralgic
@@ -259,11 +188,8 @@ Arthuriana
 artiad
 artic
 artichoke
-artichoke green
-artichoke thistle
 article
 articled
-article of faith
 articles
 articling
 articulable
@@ -272,16 +198,13 @@ articulamenta
 articulamentum
 articular
 articularly
-articular membrane
 Articulata
 articulate
 articulated
-articulated train
 articulately
 articulateness
 articulating
 articulation
-articulation index
 articulationist
 articulative
 articulator
