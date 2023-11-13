@@ -68,7 +68,8 @@ body {
 
 #the-big-box {
 	/* This div should be centered in the page */
-	float: inline-block;
+	margin: auto;
+	padding: 20px;
 }
 
 li {
@@ -88,6 +89,7 @@ li {
 
 .block-wrapper {
 	/* This wraps each of the blocks above */
+	margin: auto;
 	padding: 20px;
 	float: left;
 	background: rgb(153, 201, 201);
@@ -100,10 +102,12 @@ li {
 
 #History {
 	float: left;
+	width: 250px;
 }
 
 #Saved {
 	float: left;
+	width: 250px;
 }
 
 h2 {
