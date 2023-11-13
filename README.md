@@ -4,6 +4,9 @@ Click a button to show a random word with its definitions, synonyms, and antonym
 Wireframe link:
 https://www.figma.com/file/Oo9icJDMEOXXdqx6vITVhz/Email-Template-MVP?type=whiteboard&node-id=0%3A1&t=imCtQsMXsZaKk0qM-1
 
+Wireframe:
+<img width="1393" alt="Screenshot 2023-11-13 at 2 56 37 PM" src="https://github.com/EvanLosh/dictionary-random-word-app/assets/145052899/8f78d0f6-8515-4d82-90f7-e27860bbf909">
+
 Trello link:
 https://trello.com/invite/b/wdtQb9WM/ATTId6513feac452ea81be14c09d00a1d833B6DB5929/email-template-board
 
@@ -36,8 +39,6 @@ Stretch goal #1 Make the saved word list persist.
 Stretch goal #2 When the page loads, display the word of the day (persists when reloading the page, changes from day to day)
 
 Stretch goal #3 User can select a letter, and new words will start with that letter
-
-
 
 
 
