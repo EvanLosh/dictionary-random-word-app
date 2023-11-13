@@ -28,6 +28,7 @@ search.addEventListener('submit', (e) => {
     wordHistory.innerText = correctCase
     wordHistory.addEventListener('click', (e) => {
         e.preventDefault()
+        // put in function to render the word
         console.log("i was clicked")
     })
     history.appendChild(wordHistory)
