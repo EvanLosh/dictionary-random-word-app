@@ -5,7 +5,8 @@ Wireframe link:
 https://www.figma.com/file/Oo9icJDMEOXXdqx6vITVhz/Email-Template-MVP?type=whiteboard&node-id=0%3A1&t=imCtQsMXsZaKk0qM-1
 
 Wireframe:
-<img width="1393" alt="Screenshot 2023-11-13 at 2 56 37 PM" src="https://github.com/EvanLosh/dictionary-random-word-app/assets/145052899/8f78d0f6-8515-4d82-90f7-e27860bbf909">
+<img width="1384" alt="Screenshot 2023-11-13 at 3 08 29 PM" src="https://github.com/EvanLosh/dictionary-random-word-app/assets/145052899/58013617-135a-4d3d-a896-46ce9b7cfbac">
+
 
 Trello link:
 https://trello.com/invite/b/wdtQb9WM/ATTId6513feac452ea81be14c09d00a1d833B6DB5929/email-template-board
