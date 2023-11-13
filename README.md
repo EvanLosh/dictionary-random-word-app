@@ -2,8 +2,10 @@
 Click a button to show a random word with its definitions, synonyms, and antonyms from Free Dictionary's API, and keep a history of the words that have been shown. 
 
 Wireframe link:
+https://www.figma.com/file/Oo9icJDMEOXXdqx6vITVhz/Email-Template-MVP?type=whiteboard&node-id=0%3A1&t=imCtQsMXsZaKk0qM-1
 
 Trello link:
+https://trello.com/invite/b/wdtQb9WM/ATTId6513feac452ea81be14c09d00a1d833B6DB5929/email-template-board
 
 Example url for getting a word
 https://api.dictionaryapi.dev/api/v2/entries/en/<word>
