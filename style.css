@@ -55,6 +55,11 @@ body {
     text-align: center;
 }
 
+.block {
+	border-style: solid;
+	border: 3px;
+}
+
 #Definition {
     width: 50%;
     float: left;
