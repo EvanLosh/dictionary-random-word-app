@@ -28,6 +28,7 @@ const randomIndex = Math.floor(Math.random() * randomWords.length);
 const randomElement = randomWords[randomIndex]
 
 generateUrl(randomElement)
+addToWordHidtory(randomElement)
 
 // Search bar submit event listner
 search.addEventListener('submit', (e) => {
@@ -41,19 +42,7 @@ search.addEventListener('submit', (e) => {
 
     renderWord(correctCase)
 
-    // Add the searched word to the history section
-    const wordHistory = document.createElement('li')
-    wordHistory.innerText = correctCase
-    // Add event listner to the element
-    wordHistory.addEventListener('click', (e) => {
-        e.preventDefault()
-        generateUrl(wordHistory.textContent)
-    })
-    //call the function to add the event listener to change the color of a word when you put your mouse over it
-    colorChange(wordHistory)
-    // Appends the word to the history section
-    history.insertBefore(wordHistory, history.firstChild);
-    // history.appendChild(wordHistory)
+    addToWordHidtory(correctCase)
 
     generateUrl(correctCase)
     // Resets the search bar
@@ -80,6 +69,7 @@ randomButton.addEventListener('click', (e) => {
     const randomIndex = Math.floor(Math.random() * randomWords.length);
     const randomElement = randomWords[randomIndex]
     generateUrl(randomElement)
+    addToWordHidtory(randomElement)
 })
 
 // Function for rendering Definition to the Definition: Section
@@ -114,6 +104,20 @@ function colorChange(element) {
         e.preventDefault()
         element.style.color = defaultColor
     })
+}
+
+function addToWordHidtory(historyWord) {
+    const wordHistory = document.createElement('li')
+    wordHistory.innerText = historyWord
+    // Add event listner to the element
+    wordHistory.addEventListener('click', (e) => {
+        e.preventDefault()
+        generateUrl(wordHistory.textContent)
+    })
+    //call the function to add the event listener to change the color of a word when you put your mouse over it
+    colorChange(wordHistory)
+    // Appends the word to the history section
+    history.insertBefore(wordHistory, history.firstChild);
 }
 
 function generateUrl(theWord) {
