@@ -18,6 +18,8 @@ const saved = document.getElementById("SavedWord")
 
 const savedUl = document.getElementById("salved-list")
 
+const li = document.getElementById("reference")
+
 
 
 // Search bar submit event listner
@@ -68,31 +70,31 @@ search.addEventListener('submit', (e) => {
                 })
             })
         // Populates the saved word into the Word: section
-        wordElement.innerHTML = ''
-        const wordTag = document.createElement('p')
-        wordTag.innerText = wordHistory.textContent
-        wordElement.appendChild(wordTag)
+        // wordElement.innerHTML = ''
+        // const wordTag = document.createElement('p')
+        // wordTag.innerText = wordHistory.textContent
+        // wordElement.appendChild(wordTag)
+        renderWord(wordHistory.textContent)
     })
     // Appends the word to the history section
-    history.appendChild(wordHistory)
+    history.insertBefore(wordHistory, history.firstChild);
+    // history.appendChild(wordHistory)
 
 
     // URL with searched word for fetch Request
     fullUrl = `${url}${correctCase}${key}`
     // How far I got with the POST
-    function persistSavedWord(word) {
-        fetch(fullUrl, {
-            method: 'POST',
-            headers: {
-                // something like this goes here to access the Api with key
-                // "Authorization": `Api-Key ${fullUrl}`,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify('Textual content')
-        }).then(res => res.json())
-            .then(data => console.log(data))
-    }
+    // fetch(fullUrl, {
+    //     method: 'POST',
+    //     headers: {
+    //         // something like this goes here to access the Api with key
+    //         "Authorization": `Api-Key ${key}`,
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify('Textual content')
+    // }).then(res => res.json())
+    //     .then(data => console.log(data))
 
     // Fetch request
     fetch(fullUrl)
@@ -135,6 +137,13 @@ function renderPronunciation(newPro) {
     pronunciation.appendChild(pTag)
 }
 
+function renderWord(newWord) {
+    wordElement.innerHTML = ''
+    const wordTag = document.createElement('p')
+    wordTag.innerText = newWord
+    wordElement.appendChild(wordTag)
+}
+
 
 // Add event listner to the saved word button
 saved.addEventListener('click', (e) => {
@@ -169,10 +178,11 @@ saved.addEventListener('click', (e) => {
                 })
             })
         // Populates the saved word into the Word: section
-        wordElement.innerHTML = ''
-        const wordTag = document.createElement('p')
-        wordTag.innerText = savedWord.textContent
-        wordElement.appendChild(wordTag)
+        // wordElement.innerHTML = ''
+        // const wordTag = document.createElement('p')
+        // wordTag.innerText = savedWord.textContent
+        // wordElement.appendChild(wordTag)
+        renderWord(savedWord.textContent)
     })
     // Appends the word to the saved word section
     savedUl.appendChild(savedWord)
