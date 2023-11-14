@@ -25,6 +25,8 @@ const randomButton = document.getElementById("RamdomButtom")
 const allWords = ['Unique', 'Cacophony', 'Aurora', 'Wonky', 'Elixir', 'Labyrinth', 'Idyllic', 'Melancholy', 'Oblivion', 'Paradox']
 
 const savedWordsArray = []
+const historyWordsArray = []
+const historyLimit = 12
 
 // When the page loads, display a random word
 const randomIndex = Math.floor(Math.random() * allWords.length);
@@ -162,7 +164,8 @@ function renderSavedWord(word) {
     // savedWord.id = word
     savedWord.addEventListener('click', (e) => {
         e.preventDefault()
-        fetchAndDisplay(savedWord.textContent)
+
+        fetchAndDisplay(word)
     })
     colorChange(savedWord)
     addDeleteButton(savedWord)
@@ -184,6 +187,7 @@ function colorChange(element) {
 
 // Add a word to the history list. Called by 
 function addToWordHistory(historyWord) {
+    historyWordsArray.push(historyWord)
     const wordHistory = document.createElement('li')
     wordHistory.innerText = historyWord
     // Add event listner to the element
@@ -194,7 +198,11 @@ function addToWordHistory(historyWord) {
     colorChange(wordHistory)
     // Appends the word to the history section
     history.insertBefore(wordHistory, history.firstChild);
-    // persistHistoryWord(historyWord)
+    // while a 13th history node exists, remove it
+    while (history.querySelectorAll('li')[historyLimit]) {
+        history.querySelectorAll('li')[historyLimit].remove()
+        // stretch goal: Also remove it from db.json
+    }
 }
 
 function fetchAndDisplay(theWord) {
