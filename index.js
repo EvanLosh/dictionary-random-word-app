@@ -20,7 +20,7 @@ const savedUl = document.getElementById("salved-list")
 
 const li = document.getElementById("reference")
 
-
+const randomButton = document.getElementById("RamdomButtom")
 
 // Search bar submit event listner
 search.addEventListener('submit', (e) => {
@@ -170,13 +170,46 @@ saved.addEventListener('click', (e) => {
 // Start the json server with the following command:
 // json-server --watch db.json --port 4000
 // This function should be called when the 'save word' button is clicked
-fetch("http://localhost:4000", {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ a: word, b: 'Textual content' })
-})
+// fetch("http://localhost:4000", {
+//     method: 'POST',
+//     headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({ a: word, b: 'Textual content' })
+// })
 
-persistSavedWord("kangaroo")
+// persistSavedWord("kangaroo")
+
+const randomWords = ['Stuff', 'Things', 'Arrived', 'Arrogancy', 'Arrogate', 'Arsenide', 'Arshin', 'Arterio', 'Artful']
+
+const randomIndex = Math.floor(Math.random() * randomWords.length);
+
+const randomElement = randomWords[randomIndex]
+
+const randomUrl = `${api}${randomElement}${key}`
+
+randomButton.addEventListener('click', (e) => {
+    e.preventDefault
+    fetch(randomUrl)
+        .then(res => res.json())
+        .then(data => {
+            // Accesses Saved Definitions
+            const definitions = data[0].shortdef
+
+            // Accesses Saved Pronuciation
+            const pronounced = data[0].hwi.hw
+
+            // Renders saved pronuciation to the Pronuciation: section
+            renderPronunciation(pronounced)
+
+            // Resets resets definition
+            definition.innerHTML = ''
+
+            // Renders all definitions
+            definitions.forEach(element => {
+                renderDefinition(element)
+            })
+        })
+    renderWord(randomElement)
+})
