@@ -79,7 +79,7 @@ li {
 
 .block {
 	/* These are wrappers for three cards, one for each of the two lists and the definition block */
-	background-color: paleturquoise;
+	background-color: rgb(179, 215, 215);
 	border-style: solid;
 	border: 20px;
 	border-color: black;
@@ -92,7 +92,7 @@ li {
 	margin: auto;
 	padding: 20px;
 	float: left;
-	background: rgb(153, 201, 201);
+	background: rgb(141, 174, 199);
 }
 
 #Definition {

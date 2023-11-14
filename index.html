@@ -12,47 +12,59 @@
     <div id="Header" class="Header">
         <h1>Word Dictionary</h1>
     </div>
-    <!-- form to fetch a definition -->
+
+    <!-- The form to fetch a definition -->
     <div id="WordForm" class="WordForm">
         <form id="Search" class="Search">
             <label id="Label" class="Label">Search Word</label>
             <input id="Input" class="input">
             <button id="Submit" class="Submit">Submit</button>
         </form>
-
     </div>
-    <div id="Definition" class="Definition">
-        <h2 id="Word" class="Word">Word</h2>
-        <div id="WordLocation">
+
+    <div id="the-big-box">
+        <div class="block-wrapper">
+            <!-- The history card -->
+            <div id="History" class="History block">
+
+                <h2 id="WordHistory" class="WordHistory">Word History</h2>
+                <ul id="history-list">
+                    <!-- Whenever a word is fetched, it gets added to this list -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="block-wrapper">
+            <!-- The definition card -->
+            <div id="Definition" class="Definition block">
+                <h2 id="Word" class="Word">Word:</h2>
+                <div id="WordLocation">
+
+                </div>
+                <h2 id="DefitnitionText" class="DefitnitionText">Definition:</h2>
+                <div id="DefLocation">
+
+                </div>
+                <h3 id="Pronunciation" class="Pronunciation">Pronunciation:</h3>
+                <div id="ProLocation">
+
+                </div>
+                <button id="SavedWord" class="SavedWord">Save Word</button>
+            </div>
+        </div>
+
+        <div class="block-wrapper">
+            <!-- The saved words card -->
+            <div id="Saved" class="Saved block">
+                <h2 id="SavedWord" class="SavedWord">Saved Words</h2>
+                <ul id="salved-list">
+                    <!-- saved words will go in here as li elements -->
+                </ul>
+            </div>
 
         </div>
-        <h2 id="DefitnitionText" class="DefitnitionText">Definition</h2>
-        <div id="DefLocation">
-
-        </div>
-        <h3 id="Pronunciation" class="Pronunciation">Pronunciation</h3>
-        <div id="ProLocation">
-
-        </div>
-        <button id="SavedWord" class="SavedWord">Save Word</button>
-    </div>
-    <!-- The list of past words -->
-    <div id="History" class="History block">
-
-        <h2 id="WordHistory" class="WordHistory">Word History</h2>
-        <ul id="history-list">
-        </ul>
-    </div>
-    <!-- The list of saved words -->
-    <div id="Saved" class="Saved block">
-        <h2 id="SavedWord" class="SavedWord">Saved Words</h2>
-        <ul id="salved-list">
-            <li class="saved-word">saved words will go here</li>
-        </ul>
     </div>
 
-    </div>
-    </div>
 
 </body>
 
