@@ -135,9 +135,9 @@ function addDeleteButton(word) {
 }
 
 // Returns true if a word is already saved, false otherwise
-function checkIfAlreadySaved(word) {
+function checkIfAlreadyListed(word, arr) {
     let checkValue = false
-    savedWordsArray.forEach((savedWordsArrayItem) => {
+    arr.forEach((savedWordsArrayItem) => {
         if (word.trim().toUpperCase() === savedWordsArrayItem.trim().toUpperCase()) {
             console.log('The word is already saved')
             checkValue = true;
@@ -145,15 +145,6 @@ function checkIfAlreadySaved(word) {
     }
     )
     return checkValue
-}
-
-// Add a word to the saved word list. called by the save button.
-function postSavedWord(wordSaved) {
-    // console.log('Checking if ' + wordSaved + ' is already saved...')
-    if (!(checkIfAlreadySaved(wordSaved))) {
-        renderSavedWord(wordSaved)
-        persistSavedWord(wordSaved)
-    }
 }
 
 function renderSavedWord(word) {
@@ -172,6 +163,14 @@ function renderSavedWord(word) {
     savedUl.appendChild(savedWord)
 }
 
+function postSavedWord(wordSaved) {
+    // console.log('Checking if ' + wordSaved + ' is already saved...')
+    if (!(checkIfAlreadyListed(wordSaved, savedWordsArray))) {
+        renderSavedWord(wordSaved)
+        persistSavedWord(wordSaved)
+    }
+}
+
 // Words should turn green on mouseover, then turn back to their previous color on mouseout
 function colorChange(element) {
     let initialColor = element.style.color
@@ -187,23 +186,41 @@ function colorChange(element) {
 
 // Add a word to the history list. Called by 
 function addToWordHistory(historyWord) {
-    historyWordsArray.push(historyWord)
-    const wordHistory = document.createElement('li')
-    wordHistory.innerText = historyWord
-    // Add event listner to the element
-    wordHistory.addEventListener('click', (e) => {
-        e.preventDefault()
-        fetchAndDisplay(wordHistory.textContent)
-    })
-    colorChange(wordHistory)
-    // Appends the word to the history section
-    history.insertBefore(wordHistory, history.firstChild);
-    // while a 13th history node exists, remove it
-    while (history.querySelectorAll('li')[historyLimit]) {
-        history.querySelectorAll('li')[historyLimit].remove()
+    if (!(checkIfAlreadyListed(historyWord, historyWordsArray))) {
+        historyWordsArray.unshift(historyWord)
+        const wordHistory = document.createElement('li')
+        wordHistory.innerText = historyWord
+        // Add event listner to the element
+        wordHistory.addEventListener('click', (e) => {
+            e.preventDefault()
+            fetchAndDisplay(wordHistory.textContent)
+        })
+        colorChange(wordHistory)
+        // Appends the word to the history section
+        history.insertBefore(wordHistory, history.firstChild);
+        // while a 13th history node exists, remove it
+        while (history.querySelectorAll('li')[historyLimit]) {
+            history.querySelectorAll('li')[historyLimit].remove()
+        }
         // stretch goal: Also remove it from db.json
+        // while ( /* there are too many words in the history db */ ) {
+        //     // delete wordhistory/13 from the database
+        //     fetch("http://localhost:3000/wordhistory/" + `${historyLimit + 1}`, {
+        //         method: 'DELETE',
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         }
+        //     }).then(res => res.json())
+        //         .then((res) => {
+        //             // break the loop when there is nothing to delete
+        //             break
+        //         })
+        // }
+        historyWordsArray.length = historyLimit
     }
 }
+
 
 function fetchAndDisplay(theWord) {
     let url = `${api}${theWord}${key}`

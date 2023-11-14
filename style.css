@@ -52,6 +52,14 @@ body {
 	background-color: silver;
 }
 
+#Label {
+	margin-right: 5px;
+}
+
+#footer {
+	margin-top: 20px;
+}
+
 #Search {
 	display: flex;
 	justify-content: center;
@@ -70,6 +78,12 @@ body {
 	/* This div should be centered in the page */
 	margin: auto;
 	padding: 20px;
+	height: 600px;
+}
+
+#Random {
+	display: flex;
+	justify-content: center;
 }
 
 li {
@@ -102,12 +116,12 @@ li {
 
 #History {
 	float: left;
-	width: 250px;
+	width: 175px;
 }
 
 #Saved {
 	float: left;
-	width: 250px;
+	width: 175px;
 }
 
 h2 {
