@@ -39,7 +39,10 @@ search.addEventListener('submit', (e) => {
         method: 'POST',
         headers: {
             // something goes in here with the API key to give us access to the API
-            // Authorization: Bearer`${key}`
+            // something like this?
+            // "Authorization": `Api-Key ${fullUrl}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify('Textual content')
     }).then(res => res.json())
