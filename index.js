@@ -24,6 +24,17 @@ const randomButton = document.getElementById("RamdomButtom")
 
 const randomWords = ['Stuff', 'Things', 'Arrived', 'Arrogancy', 'Arrogate', 'Arsenide', 'Arshin', 'Arterio', 'Artful']
 
+const jsonUrl = 'http://localhost:3000/savedwords'
+
+fetch(jsonUrl)
+    .then(res => res.json())
+    .then((data) => {
+        data.forEach(element => {
+            renderSavedWord(element.word)
+        })
+    })
+
+
 const randomIndex = Math.floor(Math.random() * randomWords.length);
 const randomElement = randomWords[randomIndex]
 
@@ -52,17 +63,7 @@ search.addEventListener('submit', (e) => {
 // Add event listner to the saved word button
 saved.addEventListener('click', (e) => {
     e.preventDefault()
-    // create saved word
-    const savedWord = document.createElement('li')
-    savedWord.innerText = wordElement.children[0].textContent
-    // add event lisner to the element
-    savedWord.addEventListener('click', (e) => {
-        e.preventDefault()
-        generateUrl(savedWord.textContent)
-    })
-    colorChange(savedWord)
-    // Appends the word to the saved word section
-    savedUl.appendChild(savedWord)
+    renderSavedWord(wordElement.children[0].textContent)
 })
 
 randomButton.addEventListener('click', (e) => {
@@ -92,6 +93,21 @@ function renderWord(newWord) {
     const wordTag = document.createElement('p')
     wordTag.innerText = newWord
     wordElement.appendChild(wordTag)
+}
+
+function renderSavedWord(wordSaved) {
+    const savedWord = document.createElement('li')
+    savedWord.innerText = wordSaved
+    savedWord.addEventListener('click', (e) => {
+        e.preventDefault()
+        generateUrl(savedWord.textContent)
+    })
+    colorChange(savedWord)
+    savedUl.appendChild(savedWord)
+    const deleteButton = document.createElement('button')
+    deleteButton.textContent = 'Delete'
+    savedWord.append(deleteButton)
+    persistSavedWord(savedWord.textContent)
 }
 
 function colorChange(element) {
@@ -149,13 +165,15 @@ function generateUrl(theWord) {
 // Start the json server with the following command:
 // json-server --watch db.json --port 4000
 // This function should be called when the 'save word' button is clicked
-// fetch("http://localhost:4000", {
-//     method: 'POST',
-//     headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({ a: word, b: 'Textual content' })
-// })
-
-// persistSavedWord("kangaroo")
+function persistSavedWord(gold) {
+    fetch("http://localhost:3000/savedwords", {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ "word": gold })
+    })
+        .then(res => res.json())
+        .then((res) => console.log(res))
+}
