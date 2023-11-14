@@ -119,11 +119,7 @@ function checkIfAlreadySaved(word) {
 // Add a word to the saved word list. called by the save button.
 function postSavedWord(wordSaved) {
     console.log('Checking if ' + wordSaved + ' is already saved...')
-    if (checkIfAlreadySaved(wordSaved)) {
-        // If the word is already saved, stop the function here
-        console.log('postSavedWord aborted because the word is already saved')
-        return ''
-    } else {
+    if (!(checkIfAlreadySaved(wordSaved))) {
         renderSavedWord(wordSaved)
         persistSavedWord(wordSaved)
     }
