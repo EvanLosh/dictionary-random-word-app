@@ -101,16 +101,22 @@ function addDeleteButton(word) {
 
 // Returns true if a word is already saved, false otherwise
 function checkIfAlreadySaved(word) {
-    let checkValue = false
     savedUl.querySelectorAll('li').forEach((li) => {
-        console.log(li.textContent.trim()) // li.textContent is changed when the delete button is added
-        if (word.toUpperCase() == (li.textContent.trim().toUpperCase())) {
-            checkValue = true
-            return checkValue
+        console.log(li)
+        // let liWord = li.contents().filter(function () { return this.nodeType == Node.TEXT_NODE; })[0]
+        let liWord = li.textContent
+        console.log(liWord) // li.textContent is changed when the delete button is added
+        if (word.toUpperCase() == liWord.toUpperCase()) {
+            return true
         }
     })
-    return checkValue
+    return false
 }
+
+
+
+
+
 
 // Add a word to the saved word list. called by the save button.
 function renderSavedWord(wordSaved) {
