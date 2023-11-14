@@ -1,7 +1,7 @@
 {
   "savedwords": [
     {
-      "word": "Labyrinth",
+      "word": "Elixir",
       "id": 1
     },
     {
@@ -9,7 +9,21 @@
       "id": 2
     },
     {
+      "word": "Melancholy",
+      "id": 3
+    }
+  ],
+  "wordhistory": [
+    {
+      "word": "Elixir",
+      "id": 1
+    },
+    {
       "word": "Labyrinth",
+      "id": 2
+    },
+    {
+      "word": "Elixir",
       "id": 3
     },
     {
@@ -17,9 +31,20 @@
       "id": 4
     },
     {
-      "word": "Melancholy",
+      "word": "Aurora",
       "id": 5
+    },
+    {
+      "word": "Melancholy",
+      "id": 6
+    },
+    {
+      "word": "Labyrinth",
+      "id": 7
+    },
+    {
+      "word": "Oblivion",
+      "id": 8
     }
-  ],
-  "wordhistory": []
+  ]
 }
