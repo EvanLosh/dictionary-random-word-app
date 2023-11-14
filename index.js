@@ -103,6 +103,7 @@ function addDeleteButton(word) {
 function checkIfAlreadySaved(word) {
     savedUl.querySelectorAll('li').forEach((li) => {
         console.log(li)
+        // The line below throws an error in the console "li.contents is not a function" but contents() is a function in jQuery which is included in index.html
         // let liWord = li.contents().filter(function () { return this.nodeType == Node.TEXT_NODE; })[0]
         let liWord = li.textContent
         console.log(liWord) // li.textContent is changed when the delete button is added
