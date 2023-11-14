@@ -121,7 +121,7 @@ function addDeleteButton(word) {
             .then(res => res.json())
             .then(res => {
                 console.log(res)
-                const searchWord = word.textContent
+                const searchWord = word.querySelector('p').textContent
                 for (let i = 0; i < res.length; i++) {
                     if (res[i].word === searchWord) {
                         index = res[i].id;
@@ -150,16 +150,18 @@ function checkIfAlreadyListed(word, arr) {
 function renderSavedWord(word) {
     savedWordsArray.push(word)
     const savedWord = document.createElement('li')
-    savedWord.innerText = word
+    const savedWordp = document.createElement('p')
+    savedWordp.innerText = word
     savedWord.classList.add("saved-word")
     // savedWord.id = word
-    savedWord.addEventListener('click', (e) => {
+    savedWordp.addEventListener('click', (e) => {
         e.preventDefault()
 
         fetchAndDisplay(word)
     })
-    colorChange(savedWord)
+    colorChange(savedWordp)
     addDeleteButton(savedWord)
+    savedWord.appendChild(savedWordp)
     savedUl.appendChild(savedWord)
 }
 

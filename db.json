@@ -1,4 +1,53 @@
 {
   "savedwords": [],
-  "wordhistory": []
+  "wordhistory": [
+    {
+      "word": "Idyllic",
+      "id": 1
+    },
+    {
+      "word": "Paradox",
+      "id": 2
+    },
+    {
+      "word": "Cacophony",
+      "id": 3
+    },
+    {
+      "word": "Aurora",
+      "id": 4
+    },
+    {
+      "word": "Aurora",
+      "id": 5
+    },
+    {
+      "word": "Cacophony",
+      "id": 6
+    },
+    {
+      "word": "Unique",
+      "id": 7
+    },
+    {
+      "word": "Elixir",
+      "id": 8
+    },
+    {
+      "word": "Melancholy",
+      "id": 9
+    },
+    {
+      "word": "Melancholy",
+      "id": 10
+    },
+    {
+      "word": "Oblivion",
+      "id": 11
+    },
+    {
+      "word": "Paradox",
+      "id": 12
+    }
+  ]
 }
