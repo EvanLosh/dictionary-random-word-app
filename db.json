@@ -1,66 +1,49 @@
 {
   "savedwords": [
     {
-<<<<<<< HEAD
-      "word": "Wonky",
-      "id": 3
-    },
-    {
-      "word": "Wonky",
-      "id": 6
-    },
-    {
-      "word": "Unique",
-      "id": 8
-=======
       "word": "Labyrinth",
       "id": 1
     },
     {
-      "word": "Labyrinth",
+      "word": "Paradox",
       "id": 2
     },
     {
-      "word": "Labyrinth",
+      "word": "Unique",
       "id": 3
     },
     {
-      "word": "Labyrinth",
+      "word": "Idyllic",
       "id": 4
-    },
-    {
-      "word": "Melancholy",
-      "id": 5
->>>>>>> evanlosh
     }
   ],
   "wordhistory": [
     {
-      "word": "Idyllic",
+      "word": "Labyrinth",
       "id": 1
     },
     {
-      "word": "Idyllic",
+      "word": "Paradox",
       "id": 2
     },
     {
-      "word": "Aurora",
+      "word": "Unique",
       "id": 3
     },
     {
-      "word": "Melancholy",
+      "word": "Unique",
       "id": 4
     },
     {
-      "word": "Labyrinth",
+      "word": "Idyllic",
       "id": 5
     },
     {
-      "word": "Melancholy",
+      "word": "Unique",
       "id": 6
     },
     {
-      "word": "Oblivion",
+      "word": "Wonky",
       "id": 7
     }
   ]
