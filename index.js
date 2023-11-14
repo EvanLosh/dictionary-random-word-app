@@ -1,6 +1,6 @@
 const url = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json/'
 
-const word = document.getElementById("WordLocation")
+const wordElement = document.getElementById("WordLocation")
 
 const key = '?key=b2eaff5c-5497-49e8-8484-9745a09a2b2a'
 
@@ -16,13 +16,13 @@ const history = document.getElementById("history-list")
 
 search.addEventListener('submit', (e) => {
     e.preventDefault()
-    word.innerHTML = ''
+    wordElement.innerHTML = ''
     word1 = input.value
     let correctCase = word1.charAt(0).toUpperCase() + word1.slice(1);
     // uppercase the first letter of the word
     const wordTag = document.createElement('p')
     wordTag.innerText = correctCase
-    word.appendChild(wordTag)
+    wordElement.appendChild(wordTag)
 
     const wordHistory = document.createElement('li')
     wordHistory.innerText = correctCase
@@ -62,3 +62,24 @@ function renderPronunciation(newPro) {
     pTag.innerText = newPro
     pronunciation.appendChild(pTag)
 }
+
+// Make the saved words list persist locally by posting them to db.json
+// Start the json server with the following command:
+// json-server --watch db.json --port 4000
+// This function should be called when the 'save word' button is clicked
+function persistSavedWord(word) {
+    fetch("http://localhost:4000")
+        .then(res => res.json())
+        .then(res => console.log(res))
+}
+// fetch("http://localhost:4000", {
+//     method: 'POST',
+//     headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({ a: word, b: 'Textual content' })
+// })
+// }
+
+persistSavedWord("kangaroo")
