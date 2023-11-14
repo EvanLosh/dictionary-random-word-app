@@ -41,31 +41,58 @@ search.addEventListener('submit', (e) => {
     // Add the searched word to the history section
     const wordHistory = document.createElement('li')
     wordHistory.innerText = correctCase
+    // Add event listner to the element
     wordHistory.addEventListener('click', (e) => {
         e.preventDefault()
-        // put in function to render the word
-        console.log("i was clicked")
+        // Create url of the historical word
+        const historyUrl = `${url}${wordHistory.textContent}${key}`
+        // Fetch the historical word data
+        fetch(historyUrl)
+            .then(res => res.json())
+            .then((data) => {
+                // Accesses Historical Definitions
+                const definitions = data[0].shortdef
+
+                // Accesses History Pronuciation
+                const pronounced = data[0].hwi.hw
+
+                // Renders historical pronuciation to the Pronuciation: section
+                renderPronunciation(pronounced)
+
+                // Resets the definition
+                definition.innerHTML = ''
+
+                // Renders all definitions
+                definitions.forEach(element => {
+                    renderDefinition(element)
+                })
+            })
+        // Populates the saved word into the Word: section
+        wordElement.innerHTML = ''
+        const wordTag = document.createElement('p')
+        wordTag.innerText = wordHistory.textContent
+        wordElement.appendChild(wordTag)
     })
+    // Appends the word to the history section
     history.appendChild(wordHistory)
 
-    // Full URL for fetch Request
-    fullUrl = `${url}${word1}${key}`
 
-     //Make word history persist
-     // function persistSavedWord(word) {
-    // fetch(fullUrl, {
-    //     method: 'POST',
-    //     headers: {
-    //         // something goes in here with the API key to give us access to the API
-    //         // something like this?
-    //         // "Authorization": `Api-Key ${fullUrl}`,
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify('Textual content')
-    // }).then(res => res.json())
-    //     .then(data => console.log(data))
-    // }
+    // URL with searched word for fetch Request
+    fullUrl = `${url}${correctCase}${key}`
+    // How far I got with the POST
+    function persistSavedWord(word) {
+        fetch(fullUrl, {
+            method: 'POST',
+            headers: {
+                // something like this goes here to access the Api with key
+                // "Authorization": `Api-Key ${fullUrl}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify('Textual content')
+        }).then(res => res.json())
+            .then(data => console.log(data))
+    }
 
     // Fetch request
     fetch(fullUrl)
@@ -108,30 +135,48 @@ function renderPronunciation(newPro) {
     pronunciation.appendChild(pTag)
 }
 
+
+// Add event listner to the saved word button
 saved.addEventListener('click', (e) => {
     e.preventDefault()
+    // create saved word
     const savedWord = document.createElement('li')
-    savedWord.innerText = correctCase
+    savedWord.innerText = wordElement.children[0].textContent
+    // add event lisner to the element
+    savedWord.addEventListener('click', (e) => {
+        e.preventDefault()
+        // Create url of the saved word
+        const savedUrl = `${url}${savedWord.textContent}${key}`
+        // Fetch the saved word data
+        fetch(savedUrl)
+            .then(res => res.json())
+            .then((data) => {
+                // Accesses Saved Definitions
+                const definitions = data[0].shortdef
+
+                // Accesses Saved Pronuciation
+                const pronounced = data[0].hwi.hw
+
+                // Renders saved pronuciation to the Pronuciation: section
+                renderPronunciation(pronounced)
+
+                // Resets resets definition
+                definition.innerHTML = ''
+
+                // Renders all definitions
+                definitions.forEach(element => {
+                    renderDefinition(element)
+                })
+            })
+        // Populates the saved word into the Word: section
+        wordElement.innerHTML = ''
+        const wordTag = document.createElement('p')
+        wordTag.innerText = savedWord.textContent
+        wordElement.appendChild(wordTag)
+    })
+    // Appends the word to the saved word section
     savedUl.appendChild(savedWord)
 })
-
-    // function persistSavedWord(word) {
-    // fetch(fullUrl, {
-    //     method: 'POST',
-    //     headers: {
-    //         // something goes in here with the API key to give us access to the API
-    //         // something like this?
-    //         // "Authorization": `Api-Key ${fullUrl}`,
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify('Textual content')
-    // }).then(res => res.json())
-    //     .then(data => console.log(data))
-    // }
-
-    // persistSavedWord("kangaroo")
- 
 
 // Make the saved words list persist locally by posting them to db.json
 // Start the json server with the following command:
