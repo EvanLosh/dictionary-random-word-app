@@ -14,18 +14,24 @@ const search = document.getElementById("Search")
 
 const history = document.getElementById("history-list")
 
-const saved = document.getElementById("SavedWord")
+const saveButton = document.getElementById("save-this-word")
 
 const savedUl = document.getElementById("salved-list")
 
-const li = document.getElementById("reference")
+// const li = document.getElementById("reference")
 
 const randomButton = document.getElementById("RamdomButtom")
 
-const randomWords = ['Stuff', 'Things', 'Arrived', 'Arrogancy', 'Arrogate', 'Arsenide', 'Arshin', 'Arterio', 'Artful']
+const allWords = ['Stuff', 'Things', 'Arrived', 'Arrogancy', 'Arrogate', 'Arsenide', 'Arshin', 'Arterio', 'Artful']
 
 const jsonUrl = 'http://localhost:3000/savedwords'
 
+// When the page loads, display a random word
+const randomIndex = Math.floor(Math.random() * allWords.length);
+const randomWord = allWords[randomIndex]
+fetchAndDisplay(randomWord)
+
+// When the page loads, populate previously saved words from the local databse
 fetch(jsonUrl)
     .then(res => res.json())
     .then((data) => {
@@ -33,13 +39,6 @@ fetch(jsonUrl)
             renderSavedWord(element.word)
         })
     })
-
-
-const randomIndex = Math.floor(Math.random() * randomWords.length);
-const randomElement = randomWords[randomIndex]
-
-generateUrl(randomElement)
-addToWordHidtory(randomElement)
 
 // Search bar submit event listner
 search.addEventListener('submit', (e) => {
@@ -51,27 +50,23 @@ search.addEventListener('submit', (e) => {
     // uppercase the first letter of the word
     correctCase = word1.charAt(0).toUpperCase() + word1.slice(1);
 
-    renderWord(correctCase)
-
-    addToWordHidtory(correctCase)
-
-    generateUrl(correctCase)
+    fetchAndDisplay(correctCase)
     // Resets the search bar
     input.value = ''
 })
 
-// Add event listner to the saved word button
-saved.addEventListener('click', (e) => {
+// Add event listner to the save word button
+saveButton.addEventListener('click', (e) => {
     e.preventDefault()
     renderSavedWord(wordElement.children[0].textContent)
     // addDeleteButton(savedWord)
 })
 
+// Add event listener to the random word button
 randomButton.addEventListener('click', (e) => {
-    const randomIndex = Math.floor(Math.random() * randomWords.length);
-    const randomElement = randomWords[randomIndex]
-    generateUrl(randomElement)
-    addToWordHidtory(randomElement)
+    const randomIndex = Math.floor(Math.random() * allWords.length);
+    const randomWord = allWords[randomIndex]
+    fetchAndDisplay(randomWord)
 })
 
 // Function for rendering Definition to the Definition: Section
@@ -89,18 +84,22 @@ function renderPronunciation(newPro) {
     pronunciation.appendChild(pTag)
 }
 
+// Shows the word in the definition card
 function renderWord(newWord) {
     wordElement.innerHTML = ''
     const wordTag = document.createElement('p')
     wordTag.innerText = newWord
     wordElement.appendChild(wordTag)
 }
+
+// Each word on the saved list needs a delete button
 function addDeleteButton(word) {
     const deleteButton = document.createElement('button')
     deleteButton.textContent = 'Delete'
     word.appendChild(deleteButton)
 }
 
+// Returns true if a word is already saved, false otherwise
 function checkIfAlreadySaved(word) {
     let checkValue = false
     savedUl.querySelectorAll('li').forEach((li) => {
@@ -113,53 +112,52 @@ function checkIfAlreadySaved(word) {
     return checkValue
 }
 
+// Add a word to the saved word list. called by the save button.
 function renderSavedWord(wordSaved) {
     if (checkIfAlreadySaved(wordSaved)) {
         // If the word is already saved, stop the function here
         return ''
     }
-    else {
-        const savedWord = document.createElement('li')
-        savedWord.innerText = wordSaved
-        savedWord.addEventListener('click', (e) => {
-            e.preventDefault()
-            generateUrl(savedWord.textContent)
-        })
-        colorChange(savedWord)
-        addDeleteButton(savedWord)
-        savedUl.appendChild(savedWord)
-        // debugger
-        persistSavedWord(savedWord.textContent.trim())
-    }
+    const savedWord = document.createElement('li')
+    savedWord.innerText = wordSaved
+    savedWord.addEventListener('click', (e) => {
+        e.preventDefault()
+        fetchAndDisplay(savedWord.textContent)
+    })
+    colorChange(savedWord)
+    addDeleteButton(savedWord)
+    savedUl.appendChild(savedWord)
+    persistSavedWord(wordSaved)
 }
 
+// Words should turn green on mouseover, then turn back to their previous color on mouseout
 function colorChange(element) {
-    let defaultColor = element.style.color
+    let initialColor = element.style.color
     element.addEventListener("mouseover", (e) => {
         e.preventDefault()
         element.style.color = "green"
     })
     element.addEventListener("mouseout", (e) => {
         e.preventDefault()
-        element.style.color = defaultColor
+        element.style.color = initialColor
     })
 }
 
-function addToWordHidtory(historyWord) {
+// Add a word to the history list. Called by 
+function addToWordHistory(historyWord) {
     const wordHistory = document.createElement('li')
     wordHistory.innerText = historyWord
     // Add event listner to the element
     wordHistory.addEventListener('click', (e) => {
         e.preventDefault()
-        generateUrl(wordHistory.textContent)
+        fetchAndDisplay(wordHistory.textContent)
     })
-    //call the function to add the event listener to change the color of a word when you put your mouse over it
     colorChange(wordHistory)
     // Appends the word to the history section
     history.insertBefore(wordHistory, history.firstChild);
 }
 
-function generateUrl(theWord) {
+function fetchAndDisplay(theWord) {
     let url = `${api}${theWord}${key}`
     fetch(url)
         .then(res => res.json())
@@ -181,12 +179,11 @@ function generateUrl(theWord) {
                 renderDefinition(element)
             })
         })
+    addToWordHistory(randomWord)
     renderWord(theWord)
 }
 
 // Make the saved words list persist locally by posting them to db.json
-// Start the json server with the following command:
-// json-server --watch db.json --port 4000
 // This function should be called when the 'save word' button is clicked
 function persistSavedWord(gold) {
     fetch("http://localhost:3000/savedwords", {
