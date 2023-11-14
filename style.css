@@ -118,3 +118,8 @@ b {
 section {
 	padding: 100px 0px;
 }
+
+#error-message {
+	color: red;
+	text-align: center;
+}

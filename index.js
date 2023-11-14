@@ -32,7 +32,7 @@ const historyLimit = 12
 const randomIndex = Math.floor(Math.random() * allWords.length);
 const randomWord = allWords[randomIndex]
 fetchAndDisplay(randomWord)
-addToWordHistory(randomWord)
+// addToWordHistory(randomWord)
 persistHistoryWord(randomWord)
 
 // When the page loads, populate previously saved words from the local databse
@@ -64,7 +64,7 @@ search.addEventListener('submit', (e) => {
     correctCase = word1.charAt(0).toUpperCase() + word1.slice(1);
 
     fetchAndDisplay(correctCase)
-    addToWordHistory(correctCase)
+    // addToWordHistory(correctCase)
     persistHistoryWord(correctCase)
 
     // Resets the search bar
@@ -82,7 +82,7 @@ randomButton.addEventListener('click', (e) => {
     const randomIndex = Math.floor(Math.random() * allWords.length);
     const randomWord = allWords[randomIndex]
     fetchAndDisplay(randomWord)
-    addToWordHistory(randomWord)
+    // addToWordHistory(randomWord)
     persistHistoryWord(randomWord)
 })
 
@@ -107,6 +107,7 @@ function renderWord(newWord) {
     const wordTag = document.createElement('p')
     wordTag.innerText = newWord
     wordElement.appendChild(wordTag)
+    document.getElementById("error-message").textContent = ''
 }
 
 // Each word on the saved list needs a delete button
@@ -139,7 +140,7 @@ function checkIfAlreadyListed(word, arr) {
     let checkValue = false
     arr.forEach((savedWordsArrayItem) => {
         if (word.trim().toUpperCase() === savedWordsArrayItem.trim().toUpperCase()) {
-            console.log('The word is already saved')
+            // console.log('The word is already saved')
             checkValue = true;
         }
     }
@@ -203,22 +204,24 @@ function addToWordHistory(historyWord) {
         // while a 13th history node exists, remove it
         while (history.querySelectorAll('li')[historyLimit]) {
             history.querySelectorAll('li')[historyLimit].remove()
+            // stretch goal: Also remove it from db.json
+            // while ( /* there are too many words in the history db */ ) {
+            //     // delete wordhistory/13 from the database
+            //     fetch("http://localhost:3000/wordhistory/" + `${historyLimit + 1}`, {
+            //         method: 'DELETE',
+            //         headers: {
+            //             'Accept': 'application/json',
+            //             'Content-Type': 'application/json'
+            //         }
+            //     }).then(res => res.json())
+            //         .then((res) => {
+            //             // break the loop when there is nothing more to delete
+            //             if (!res) {
+            //             break
+            //             }})
+            // }
         }
-        // stretch goal: Also remove it from db.json
-        // while ( /* there are too many words in the history db */ ) {
-        //     // delete wordhistory/13 from the database
-        //     fetch("http://localhost:3000/wordhistory/" + `${historyLimit + 1}`, {
-        //         method: 'DELETE',
-        //         headers: {
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json'
-        //         }
-        //     }).then(res => res.json())
-        //         .then((res) => {
-        //             // break the loop when there is nothing to delete
-        //             break
-        //         })
-        // }
+        // Remove all elements in the array with indices greater than the history limit
         historyWordsArray.length = historyLimit
     }
 }
@@ -230,8 +233,7 @@ function fetchAndDisplay(theWord) {
     fetch(url)
         .then(res => res.json())
         .then(data => {
-            console.log(data[0].shortdef)
-            if (data) {
+            if (data[0].shortdef) {
                 wordIsInTheDictionary = true
                 // Accesses Saved Definitions
                 const definitions = data[0].shortdef
@@ -250,9 +252,10 @@ function fetchAndDisplay(theWord) {
                 definitions.forEach(element => {
                     renderDefinition(element)
                 })
+                addToWordHistory(theWord)
             }
             else {
-                alert(`${theWord} is not in the dictionary. Try another word.`)
+                document.getElementById("error-message").textContent = `${theWord} is not in the dictionary. Try another word.`
             }
         })
 }
