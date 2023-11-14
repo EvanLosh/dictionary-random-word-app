@@ -101,6 +101,14 @@ li {
 	height: 500px;
 }
 
+.delete {
+	float: left;
+}
+
+.saved-word {
+	float: left;
+}
+
 .block-wrapper {
 	/* This wraps each of the blocks above */
 	margin: auto;
@@ -273,6 +281,8 @@ section {
 	color: #ffffff;
 	background-color: #636ee1;
 }
+
+
 
 .btn-demo-small {
 	font-size: 12px;

@@ -114,6 +114,7 @@ function renderWord(newWord) {
 function addDeleteButton(word) {
     const deleteButton = document.createElement('button')
     deleteButton.textContent = "Delete"
+    deleteButton.classList.add("delete")
     deleteButton.addEventListener('click', (e) => {
         e.preventDefault()
         word.remove()
@@ -152,7 +153,7 @@ function renderSavedWord(word) {
     const savedWord = document.createElement('li')
     const savedWordp = document.createElement('p')
     savedWordp.innerText = word
-    savedWord.classList.add("saved-word")
+    savedWordp.classList.add("saved-word")
     // savedWord.id = word
     savedWordp.addEventListener('click', (e) => {
         e.preventDefault()
@@ -160,8 +161,8 @@ function renderSavedWord(word) {
         fetchAndDisplay(word)
     })
     colorChange(savedWordp)
-    addDeleteButton(savedWord)
     savedWord.appendChild(savedWordp)
+    addDeleteButton(savedWord)
     savedUl.appendChild(savedWord)
 }
 
