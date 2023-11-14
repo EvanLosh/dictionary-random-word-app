@@ -102,24 +102,26 @@ function addDeleteButton(word) {
 
 // Returns true if a word is already saved, false otherwise
 function checkIfAlreadySaved(word) {
+    let checkValue = false
     savedUl.querySelectorAll('li').forEach((li) => {
         // The line below throws an error in the console "li.contents is not a function" but contents() is a function in jQuery which is included in index.html
         // let liWord = li.contents().filter(function () { return this.nodeType == Node.TEXT_NODE; })[0]
         let liWord = li.textContent
         // console.log(liWord) // li.textContent is changed when the delete button is added
         if (word.trim().toUpperCase() === liWord.trim().toUpperCase()) {
-            console.log('word is ' + word)
-            console.log('liWord is ' + liWord)
-            return true
+            // console.log('The word is already saved')
+            checkValue = true;
         }
     })
-    return false
+    return checkValue
 }
 
 // Add a word to the saved word list. called by the save button.
 function postSavedWord(wordSaved) {
+    console.log('Checking if ' + wordSaved + ' is already saved...')
     if (checkIfAlreadySaved(wordSaved)) {
         // If the word is already saved, stop the function here
+        console.log('postSavedWord aborted because the word is already saved')
         return ''
     } else {
         renderSavedWord(wordSaved)
