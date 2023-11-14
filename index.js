@@ -64,6 +64,7 @@ search.addEventListener('submit', (e) => {
 saved.addEventListener('click', (e) => {
     e.preventDefault()
     renderSavedWord(wordElement.children[0].textContent)
+    // addDeleteButton(savedWord)
 })
 
 randomButton.addEventListener('click', (e) => {
@@ -94,20 +95,42 @@ function renderWord(newWord) {
     wordTag.innerText = newWord
     wordElement.appendChild(wordTag)
 }
-
-function renderSavedWord(wordSaved) {
-    const savedWord = document.createElement('li')
-    savedWord.innerText = wordSaved
-    savedWord.addEventListener('click', (e) => {
-        e.preventDefault()
-        generateUrl(savedWord.textContent)
-    })
-    colorChange(savedWord)
-    savedUl.appendChild(savedWord)
+function addDeleteButton(word) {
     const deleteButton = document.createElement('button')
     deleteButton.textContent = 'Delete'
-    savedWord.append(deleteButton)
-    persistSavedWord(savedWord.textContent)
+    word.appendChild(deleteButton)
+}
+
+function checkIfAlreadySaved(word) {
+    let checkValue = false
+    savedUl.querySelectorAll('li').forEach((li) => {
+        console.log(li.textContent.trim()) // li.textContent is changed when the delete button is added
+        if (word.toUpperCase() == (li.textContent.trim().toUpperCase())) {
+            checkValue = true
+            return checkValue
+        }
+    })
+    return checkValue
+}
+
+function renderSavedWord(wordSaved) {
+    if (checkIfAlreadySaved(wordSaved)) {
+        // If the word is already saved, stop the function here
+        return ''
+    }
+    else {
+        const savedWord = document.createElement('li')
+        savedWord.innerText = wordSaved
+        savedWord.addEventListener('click', (e) => {
+            e.preventDefault()
+            generateUrl(savedWord.textContent)
+        })
+        colorChange(savedWord)
+        addDeleteButton(savedWord)
+        savedUl.appendChild(savedWord)
+        // debugger
+        persistSavedWord(savedWord.textContent.trim())
+    }
 }
 
 function colorChange(element) {
