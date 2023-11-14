@@ -16,13 +16,15 @@ const history = document.getElementById("history-list")
 
 const saveButton = document.getElementById("save-this-word")
 
-const savedUl = document.getElementById("salved-list")
+const savedUl = document.getElementById("saved-list")
 
 // const li = document.getElementById("reference")
 
 const randomButton = document.getElementById("RamdomButtom")
 
 const allWords = ['Unique', 'Cacophony', 'Aurora', 'Wonky', 'Elixir', 'Labyrinth', 'Idyllic', 'Melancholy', 'Oblivion', 'Paradox']
+
+const savedWordsArray = []
 
 // When the page loads, display a random word
 const randomIndex = Math.floor(Math.random() * allWords.length);
@@ -109,6 +111,7 @@ function renderWord(newWord) {
 // Each word on the saved list needs a delete button
 function addDeleteButton(word) {
     const deleteButton = document.createElement('button')
+    deleteButton.textContent = "Delete"
     deleteButton.addEventListener('click', (e) => {
         e.preventDefault()
         word.remove()
@@ -132,35 +135,31 @@ function addDeleteButton(word) {
 // Returns true if a word is already saved, false otherwise
 function checkIfAlreadySaved(word) {
     let checkValue = false
-    savedUl.querySelectorAll('li').forEach((li) => {
-        // The line below throws an error in the console "li.contents is not a function" but contents() is a function in jQuery which is included in index.html
-        // let liWord = li.contents().filter(function () { return this.nodeType == Node.TEXT_NODE; })[0]
-        let liWord = li.textContent
-        // console.log(liWord) // li.textContent is changed when the delete button is added
-        if (word.trim().toUpperCase() === liWord.trim().toUpperCase()) {
-            // console.log('The word is already saved')
+    savedWordsArray.forEach((savedWordsArrayItem) => {
+        if (word.trim().toUpperCase() === savedWordsArrayItem.trim().toUpperCase()) {
+            console.log('The word is already saved')
             checkValue = true;
         }
-    })
+    }
+    )
     return checkValue
 }
 
 // Add a word to the saved word list. called by the save button.
 function postSavedWord(wordSaved) {
-    console.log('Checking if ' + wordSaved + ' is already saved...')
-    if (checkIfAlreadySaved(wordSaved)) {
-        // If the word is already saved, stop the function here
-        console.log('postSavedWord aborted because the word is already saved')
-        return ''
-    } else {
+    // console.log('Checking if ' + wordSaved + ' is already saved...')
+    if (!(checkIfAlreadySaved(wordSaved))) {
         renderSavedWord(wordSaved)
         persistSavedWord(wordSaved)
     }
 }
 
 function renderSavedWord(word) {
+    savedWordsArray.push(word)
     const savedWord = document.createElement('li')
     savedWord.innerText = word
+    savedWord.classList.add("saved-word")
+    // savedWord.id = word
     savedWord.addEventListener('click', (e) => {
         e.preventDefault()
         fetchAndDisplay(savedWord.textContent)

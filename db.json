@@ -1,6 +1,7 @@
 {
   "savedwords": [
     {
+<<<<<<< HEAD
       "word": "Wonky",
       "id": 3
     },
@@ -11,6 +12,26 @@
     {
       "word": "Unique",
       "id": 8
+=======
+      "word": "Labyrinth",
+      "id": 1
+    },
+    {
+      "word": "Labyrinth",
+      "id": 2
+    },
+    {
+      "word": "Labyrinth",
+      "id": 3
+    },
+    {
+      "word": "Labyrinth",
+      "id": 4
+    },
+    {
+      "word": "Melancholy",
+      "id": 5
+>>>>>>> evanlosh
     }
   ],
   "wordhistory": [
