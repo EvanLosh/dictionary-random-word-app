@@ -18,6 +18,7 @@ search.addEventListener('submit', (e) => {
     e.preventDefault()
     wordElement.innerHTML = ''
     word1 = input.value
+    fullUrl = `${url}${word1}${key}`
     let correctCase = word1.charAt(0).toUpperCase() + word1.slice(1);
     // uppercase the first letter of the word
     const wordTag = document.createElement('p')
@@ -32,11 +33,25 @@ search.addEventListener('submit', (e) => {
         console.log("i was clicked")
     })
     history.appendChild(wordHistory)
+
+    // function persistSavedWord(word) {
+    fetch(fullUrl, {
+        method: 'POST',
+        headers: {
+            // something goes in here with the API key to give us access to the API
+            // Authorization: Bearer`${key}`
+        },
+        body: JSON.stringify('Textual content')
+    }).then(res => res.json())
+        .then(data => console.log(data))
+    // }
+
+    // persistSavedWord("kangaroo")
     // make word history persist
 
     // console.log(word1)
 
-    fetch(`${url}${word1}${key}`)
+    fetch(fullUrl)
         .then(res => res.json())
         .then((data) => {
             const definitions = data[0].shortdef
@@ -67,11 +82,11 @@ function renderPronunciation(newPro) {
 // Start the json server with the following command:
 // json-server --watch db.json --port 4000
 // This function should be called when the 'save word' button is clicked
-function persistSavedWord(word) {
-    fetch("http://localhost:4000")
-        .then(res => res.json())
-        .then(res => console.log(res))
-}
+// function persistSavedWord(word) {
+//     fetch(`${url}${word1}${key}`)
+//         .then(res => res.json())
+//         .then(res => console.log(res))
+// }
 // fetch("http://localhost:4000", {
 //     method: 'POST',
 //     headers: {
@@ -82,4 +97,4 @@ function persistSavedWord(word) {
 // })
 // }
 
-persistSavedWord("kangaroo")
+// persistSavedWord("kangaroo")
