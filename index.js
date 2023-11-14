@@ -75,7 +75,6 @@ search.addEventListener('submit', (e) => {
 saveButton.addEventListener('click', (e) => {
     e.preventDefault()
     postSavedWord(wordElement.children[0].textContent)
-    // addDeleteButton(savedWord)
 })
 
 // Add event listener to the random word button
