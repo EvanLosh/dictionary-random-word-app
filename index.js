@@ -71,6 +71,8 @@ search.addEventListener('submit', (e) => {
             })
         renderWord(wordHistory.textContent)
     })
+    //call the function to add the event listener to change the color of a word when you put your mouse over it
+    colorChange(wordHistory) 
     // Appends the word to the history section
     history.insertBefore(wordHistory, history.firstChild);
     // history.appendChild(wordHistory)
@@ -127,6 +129,17 @@ function renderWord(newWord) {
     wordElement.appendChild(wordTag)
 }
 
+function colorChange(element) {
+    let defaultColor = element.style.color
+    element.addEventListener("mouseover", (e) => {   
+    e.preventDefault()
+    element.style.color = "green"   
+    })
+    element.addEventListener("mouseout", (e) => {   
+        e.preventDefault()
+        element.style.color = defaultColor   
+        })
+}
 
 // Add event listner to the saved word button
 saved.addEventListener('click', (e) => {
@@ -162,6 +175,7 @@ saved.addEventListener('click', (e) => {
             })
         renderWord(savedWord.textContent)
     })
+    colorChange(savedWord)
     // Appends the word to the saved word section
     savedUl.appendChild(savedWord)
 })
