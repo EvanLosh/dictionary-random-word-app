@@ -72,6 +72,9 @@ function persistSavedWord(word) {
         .then(res => res.json())
         .then(res => console.log(res))
 }
+
+persistSavedWord("kangaroo")
+
 // fetch("http://localhost:4000", {
 //     method: 'POST',
 //     headers: {
@@ -80,6 +83,3 @@ function persistSavedWord(word) {
 //     },
 //     body: JSON.stringify({ a: word, b: 'Textual content' })
 // })
-// }
-
-persistSavedWord("kangaroo")
