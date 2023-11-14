@@ -225,29 +225,38 @@ function addToWordHistory(historyWord) {
 
 
 function fetchAndDisplay(theWord) {
+    let wordIsInTheDictionary = false
     let url = `${api}${theWord}${key}`
     fetch(url)
         .then(res => res.json())
         .then(data => {
-            // Accesses Saved Definitions
-            const definitions = data[0].shortdef
+            console.log(data[0].shortdef)
+            if (data) {
+                wordIsInTheDictionary = true
+                // Accesses Saved Definitions
+                const definitions = data[0].shortdef
 
-            // Accesses Saved Pronuciation
-            const pronounced = data[0].hwi.hw
+                // Accesses Saved Pronuciation
+                const pronounced = data[0].hwi.hw
 
-            // Renders saved pronuciation to the Pronuciation: section
-            renderPronunciation(pronounced)
+                // Renders saved pronuciation to the Pronuciation: section
+                renderPronunciation(pronounced)
 
-            // Resets resets definition
-            definition.innerHTML = ''
+                // Resets resets definition
+                definition.innerHTML = ''
 
-            // Renders all definitions
-            definitions.forEach(element => {
-                renderDefinition(element)
-            })
+                renderWord(theWord)
+                // Renders all definitions
+                definitions.forEach(element => {
+                    renderDefinition(element)
+                })
+            }
+            else {
+                alert(`${theWord} is not in the dictionary. Try another word.`)
+            }
         })
-    renderWord(theWord)
 }
+
 
 // Make the saved words list persist locally by posting them to db.json
 // This function should be called when the 'save word' button is clicked
