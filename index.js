@@ -1,4 +1,4 @@
-const url = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json/'
+const api = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json/'
 
 const wordElement = document.getElementById("WordLocation")
 
@@ -46,8 +46,8 @@ search.addEventListener('submit', (e) => {
     // Add event listner to the element
     wordHistory.addEventListener('click', (e) => {
         e.preventDefault()
-        // Create url of the historical word
-        const historyUrl = `${url}${wordHistory.textContent}${key}`
+        // Create api of the historical word
+        const historyUrl = `${api}${wordHistory.textContent}${key}`
         // Fetch the historical word data
         fetch(historyUrl)
             .then(res => res.json())
@@ -69,11 +69,6 @@ search.addEventListener('submit', (e) => {
                     renderDefinition(element)
                 })
             })
-        // Populates the saved word into the Word: section
-        // wordElement.innerHTML = ''
-        // const wordTag = document.createElement('p')
-        // wordTag.innerText = wordHistory.textContent
-        // wordElement.appendChild(wordTag)
         renderWord(wordHistory.textContent)
     })
     // Appends the word to the history section
@@ -82,19 +77,7 @@ search.addEventListener('submit', (e) => {
 
 
     // URL with searched word for fetch Request
-    fullUrl = `${url}${correctCase}${key}`
-    // How far I got with the POST
-    // fetch(fullUrl, {
-    //     method: 'POST',
-    //     headers: {
-    //         // something like this goes here to access the Api with key
-    //         "Authorization": `Api-Key ${key}`,
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify('Textual content')
-    // }).then(res => res.json())
-    //     .then(data => console.log(data))
+    fullUrl = `${api}${correctCase}${key}`
 
     // Fetch request
     fetch(fullUrl)
@@ -154,8 +137,8 @@ saved.addEventListener('click', (e) => {
     // add event lisner to the element
     savedWord.addEventListener('click', (e) => {
         e.preventDefault()
-        // Create url of the saved word
-        const savedUrl = `${url}${savedWord.textContent}${key}`
+        // Create api of the saved word
+        const savedUrl = `${api}${savedWord.textContent}${key}`
         // Fetch the saved word data
         fetch(savedUrl)
             .then(res => res.json())
@@ -177,11 +160,6 @@ saved.addEventListener('click', (e) => {
                     renderDefinition(element)
                 })
             })
-        // Populates the saved word into the Word: section
-        // wordElement.innerHTML = ''
-        // const wordTag = document.createElement('p')
-        // wordTag.innerText = savedWord.textContent
-        // wordElement.appendChild(wordTag)
         renderWord(savedWord.textContent)
     })
     // Appends the word to the saved word section
@@ -192,19 +170,13 @@ saved.addEventListener('click', (e) => {
 // Start the json server with the following command:
 // json-server --watch db.json --port 4000
 // This function should be called when the 'save word' button is clicked
-function persistSavedWord(word) {
-    fetch("http://localhost:4000")
-        .then(res => res.json())
-        .then(res => console.log(res))
-}
-// fetch("http://localhost:4000", {
-//     method: 'POST',
-//     headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({ a: word, b: 'Textual content' })
-// })
-// }
+fetch("http://localhost:4000", {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ a: word, b: 'Textual content' })
+})
 
 persistSavedWord("kangaroo")
