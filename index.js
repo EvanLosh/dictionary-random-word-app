@@ -28,9 +28,16 @@ const allWords = ['Unique', 'Cacophony', 'Aurora', 'Wonky', 'Elixir', 'Labyrinth
 const randomIndex = Math.floor(Math.random() * allWords.length);
 const randomWord = allWords[randomIndex]
 fetchAndDisplay(randomWord)
+addToWordHistory(randomWord)
 
 // When the page loads, populate previously saved words from the local databse
-
+fetch('http://localhost:3000/savedwords')
+    .then(res => res.json())
+    .then(res => {
+        res.forEach(element => {
+            renderSavedWord(element.word)
+        })
+    })
 
 // Search bar submit event listner
 search.addEventListener('submit', (e) => {
@@ -52,7 +59,7 @@ search.addEventListener('submit', (e) => {
 // Add event listner to the save word button
 saveButton.addEventListener('click', (e) => {
     e.preventDefault()
-    renderSavedWord(wordElement.children[0].textContent)
+    postSavedWord(wordElement.children[0].textContent)
     // addDeleteButton(savedWord)
 })
 
@@ -109,22 +116,26 @@ function checkIfAlreadySaved(word) {
 }
 
 // Add a word to the saved word list. called by the save button.
-function renderSavedWord(wordSaved) {
+function postSavedWord(wordSaved) {
     if (checkIfAlreadySaved(wordSaved)) {
         // If the word is already saved, stop the function here
         return ''
     } else {
-        const savedWord = document.createElement('li')
-        savedWord.innerText = wordSaved
-        savedWord.addEventListener('click', (e) => {
-            e.preventDefault()
-            fetchAndDisplay(savedWord.textContent)
-        })
-        colorChange(savedWord)
-        addDeleteButton(savedWord)
-        savedUl.appendChild(savedWord)
-        persistSavedWord(savedWord.textContent)
+        renderSavedWord(wordSaved)
+        persistSavedWord(wordSaved)
     }
+}
+
+function renderSavedWord(word) {
+    const savedWord = document.createElement('li')
+    savedWord.innerText = word
+    savedWord.addEventListener('click', (e) => {
+        e.preventDefault()
+        fetchAndDisplay(savedWord.textContent)
+    })
+    colorChange(savedWord)
+    addDeleteButton(savedWord)
+    savedUl.appendChild(savedWord)
 }
 
 // Words should turn green on mouseover, then turn back to their previous color on mouseout
@@ -182,7 +193,6 @@ function fetchAndDisplay(theWord) {
 // Make the saved words list persist locally by posting them to db.json
 // This function should be called when the 'save word' button is clicked
 function persistSavedWord(word) {
-    console.log(word)
     fetch("http://localhost:3000/savedwords", {
         method: 'POST',
         headers: {
@@ -191,10 +201,6 @@ function persistSavedWord(word) {
         },
         body: JSON.stringify({ 'word': word })
     })
-        .then(res => res.json())
-        .then((res) => {
-            console.log(res)
-        })
 }
 
 // function persistHistoryWord(gold) {
