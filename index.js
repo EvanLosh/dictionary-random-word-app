@@ -29,6 +29,7 @@ const randomIndex = Math.floor(Math.random() * allWords.length);
 const randomWord = allWords[randomIndex]
 fetchAndDisplay(randomWord)
 addToWordHistory(randomWord)
+persistHistoryWord(randomWord)
 
 // When the page loads, populate previously saved words from the local databse
 fetch('http://localhost:3000/savedwords')
@@ -36,6 +37,15 @@ fetch('http://localhost:3000/savedwords')
     .then(res => {
         res.forEach(element => {
             renderSavedWord(element.word)
+        })
+    })
+
+
+fetch("http://localhost:3000/wordhistory")
+    .then(res => res.json())
+    .then(res => {
+        res.forEach(element => {
+            addToWordHistory(element.word)
         })
     })
 
@@ -51,6 +61,7 @@ search.addEventListener('submit', (e) => {
 
     fetchAndDisplay(correctCase)
     addToWordHistory(correctCase)
+    persistHistoryWord(correctCase)
 
     // Resets the search bar
     input.value = ''
@@ -69,6 +80,7 @@ randomButton.addEventListener('click', (e) => {
     const randomWord = allWords[randomIndex]
     fetchAndDisplay(randomWord)
     addToWordHistory(randomWord)
+    persistHistoryWord(randomWord)
 })
 
 // Function for rendering Definition to the Definition: Section
@@ -164,6 +176,7 @@ function addToWordHistory(historyWord) {
     colorChange(wordHistory)
     // Appends the word to the history section
     history.insertBefore(wordHistory, history.firstChild);
+    // persistHistoryWord(historyWord)
 }
 
 function fetchAndDisplay(theWord) {
@@ -204,15 +217,13 @@ function persistSavedWord(word) {
     })
 }
 
-// function persistHistoryWord(gold) {
-//     fetch("http://localhost:3000/wordhistory", {
-//         method: 'POST',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({ "word": gold })
-//     })
-//         .then(res => res.json())
-//         .then((res) => console.log(res))
-// }
+function persistHistoryWord(word) {
+    fetch("http://localhost:3000/wordhistory", {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ "word": word })
+    })
+}
