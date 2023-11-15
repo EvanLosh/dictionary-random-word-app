@@ -22,9 +22,7 @@ const savedUl = document.getElementById("salved-list")
 
 const randomButton = document.getElementById("RamdomButtom")
 
-const allWords = ['Stuff', 'Things', 'Arrived', 'Arrogancy', 'Arrogate', 'Arsenide', 'Arshin', 'Arterio', 'Artful']
-
-const jsonUrl = 'http://localhost:3000/savedwords'
+const allWords = ['Unique', 'Cacophony', 'Aurora', 'Wonky', 'Elixir', 'Labyrinth', 'Idyllic', 'Melancholy', 'Oblivion', 'Paradox']
 
 // When the page loads, display a random word
 const randomIndex = Math.floor(Math.random() * allWords.length);
@@ -32,13 +30,8 @@ const randomWord = allWords[randomIndex]
 fetchAndDisplay(randomWord)
 
 // When the page loads, populate previously saved words from the local databse
-fetch(jsonUrl)
-    .then(res => res.json())
-    .then((data) => {
-        data.forEach(element => {
-            renderSavedWord(element.word)
-        })
-    })
+fetchAndDisplay(randomWord)
+addToWordHistory(randomWord)
 
 // Search bar submit event listner
 search.addEventListener('submit', (e) => {
@@ -51,6 +44,8 @@ search.addEventListener('submit', (e) => {
     correctCase = word1.charAt(0).toUpperCase() + word1.slice(1);
 
     fetchAndDisplay(correctCase)
+    addToWordHistory(correctCase)
+
     // Resets the search bar
     input.value = ''
 })
@@ -67,6 +62,7 @@ randomButton.addEventListener('click', (e) => {
     const randomIndex = Math.floor(Math.random() * allWords.length);
     const randomWord = allWords[randomIndex]
     fetchAndDisplay(randomWord)
+    addToWordHistory(randomWord)
 })
 
 // Function for rendering Definition to the Definition: Section
@@ -186,7 +182,6 @@ function fetchAndDisplay(theWord) {
                 renderDefinition(element)
             })
         })
-    addToWordHistory(randomWord)
     renderWord(theWord)
 }
 
@@ -194,6 +189,19 @@ function fetchAndDisplay(theWord) {
 // This function should be called when the 'save word' button is clicked
 function persistSavedWord(gold) {
     fetch("http://localhost:3000/savedwords", {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ "word": gold })
+    })
+        .then(res => res.json())
+        .then((res) => console.log(res))
+}
+
+function persistHistoryWord(gold) {
+    fetch("http://localhost:3000/wordhistory", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
