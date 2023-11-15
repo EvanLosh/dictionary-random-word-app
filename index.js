@@ -109,6 +109,23 @@ function renderWord(newWord) {
 // Each word on the saved list needs a delete button
 function addDeleteButton(word) {
     const deleteButton = document.createElement('button')
+    deleteButton.addEventListener('click', (e) => {
+        e.preventDefault()
+        word.remove()
+        fetch(savedWordsUrl)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                const searchWord = word.textContent
+                for (let i = 0; i < res.length; i++) {
+                    if (res[i].word === searchWord) {
+                        index = res[i].id;
+                        deleteSavedWord(index)
+                        break; // Break the loop if the value is found
+                    }
+                }
+            })
+    })
     word.appendChild(deleteButton)
 }
 
@@ -206,8 +223,10 @@ function fetchAndDisplay(theWord) {
 
 // Make the saved words list persist locally by posting them to db.json
 // This function should be called when the 'save word' button is clicked
+const savedWordsUrl = "http://localhost:3000/savedwords"
+
 function persistSavedWord(word) {
-    fetch("http://localhost:3000/savedwords", {
+    fetch(savedWordsUrl, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -225,5 +244,15 @@ function persistHistoryWord(word) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ "word": word })
+    })
+}
+
+function deleteSavedWord(word) {
+    fetch(`${savedWordsUrl}/${word}`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
     })
 }
