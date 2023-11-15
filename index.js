@@ -30,8 +30,7 @@ const randomWord = allWords[randomIndex]
 fetchAndDisplay(randomWord)
 
 // When the page loads, populate previously saved words from the local databse
-fetchAndDisplay(randomWord)
-addToWordHistory(randomWord)
+
 
 // Search bar submit event listner
 search.addEventListener('submit', (e) => {
@@ -91,7 +90,6 @@ function renderWord(newWord) {
 // Each word on the saved list needs a delete button
 function addDeleteButton(word) {
     const deleteButton = document.createElement('button')
-    deleteButton.textContent = 'Delete'
     word.appendChild(deleteButton)
 }
 
@@ -110,27 +108,23 @@ function checkIfAlreadySaved(word) {
     return false
 }
 
-
-
-
-
-
 // Add a word to the saved word list. called by the save button.
 function renderSavedWord(wordSaved) {
     if (checkIfAlreadySaved(wordSaved)) {
         // If the word is already saved, stop the function here
         return ''
+    } else {
+        const savedWord = document.createElement('li')
+        savedWord.innerText = wordSaved
+        savedWord.addEventListener('click', (e) => {
+            e.preventDefault()
+            fetchAndDisplay(savedWord.textContent)
+        })
+        colorChange(savedWord)
+        addDeleteButton(savedWord)
+        savedUl.appendChild(savedWord)
+        persistSavedWord(savedWord.textContent)
     }
-    const savedWord = document.createElement('li')
-    savedWord.innerText = wordSaved
-    savedWord.addEventListener('click', (e) => {
-        e.preventDefault()
-        fetchAndDisplay(savedWord.textContent)
-    })
-    colorChange(savedWord)
-    addDeleteButton(savedWord)
-    savedUl.appendChild(savedWord)
-    persistSavedWord(wordSaved)
 }
 
 // Words should turn green on mouseover, then turn back to their previous color on mouseout
@@ -187,28 +181,31 @@ function fetchAndDisplay(theWord) {
 
 // Make the saved words list persist locally by posting them to db.json
 // This function should be called when the 'save word' button is clicked
-function persistSavedWord(gold) {
+function persistSavedWord(word) {
+    console.log(word)
     fetch("http://localhost:3000/savedwords", {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ "word": gold })
+        body: JSON.stringify({ 'word': word })
     })
         .then(res => res.json())
-        .then((res) => console.log(res))
+        .then((res) => {
+            console.log(res)
+        })
 }
 
-function persistHistoryWord(gold) {
-    fetch("http://localhost:3000/wordhistory", {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ "word": gold })
-    })
-        .then(res => res.json())
-        .then((res) => console.log(res))
-}
+// function persistHistoryWord(gold) {
+//     fetch("http://localhost:3000/wordhistory", {
+//         method: 'POST',
+//         headers: {
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ "word": gold })
+//     })
+//         .then(res => res.json())
+//         .then((res) => console.log(res))
+// }

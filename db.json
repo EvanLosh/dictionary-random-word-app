@@ -1,4 +1,33 @@
 {
-  "savedwords": [],
+  "savedwords": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "word": {},
+      "id": 5
+    },
+    {
+      "word": {},
+      "id": 6
+    },
+    {
+      "word": "Melancholy",
+      "id": 7
+    },
+    {
+      "word": "Oblivion",
+      "id": 8
+    }
+  ],
   "wordhistory": []
 }
