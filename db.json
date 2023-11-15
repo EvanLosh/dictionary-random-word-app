@@ -1,31 +1,32 @@
 {
-  "savedwords": [
+  "savedwords": [],
+  "wordhistory": [
     {
-      "word": "Unique",
+      "word": "Paradox",
       "id": 1
     },
     {
-      "word": "Unique",
+      "word": "Arriving",
       "id": 2
     },
     {
-      "word": "Unique",
+      "word": "Idyllic",
       "id": 3
     },
     {
-      "word": "Unique",
+      "word": "Arrogate",
       "id": 4
     },
     {
-      "word": "Unique",
+      "word": "Aurora",
       "id": 5
     },
     {
-      "word": "Unique",
+      "word": "Arriving",
       "id": 6
     },
     {
-      "word": "Unique",
+      "word": "Cacophony",
       "id": 7
     },
     {
@@ -33,33 +34,16 @@
       "id": 8
     },
     {
-      "word": "Unique",
+      "word": "Arriving",
       "id": 9
     },
     {
-      "word": "Melancholy",
+      "word": "Elixir",
       "id": 10
     },
     {
-      "word": "Melancholy",
+      "word": "Unique",
       "id": 11
-    },
-    {
-      "word": "Melancholy",
-      "id": 12
-    },
-    {
-      "word": "Melancholy",
-      "id": 13
-    },
-    {
-      "word": "Melancholy",
-      "id": 14
-    },
-    {
-      "word": "Paradox",
-      "id": 15
     }
-  ],
-  "wordhistory": []
+  ]
 }
