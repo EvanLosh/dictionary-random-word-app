@@ -1,5 +1,11 @@
 const api = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json/'
 
+const history = document.getElementById("history-list")
+
+const historyUrl = "http://localhost:3000/wordhistory"
+
+const savedWordsUrl = "http://localhost:3000/savedwords"
+
 const wordElement = document.getElementById("WordLocation")
 
 const key = '?key=b2eaff5c-5497-49e8-8484-9745a09a2b2a'
@@ -12,15 +18,17 @@ const input = document.getElementById("Input")
 
 const search = document.getElementById("Search")
 
-const history = document.getElementById("history-list")
-
 const saveButton = document.getElementById("save-this-word")
 
 const savedUl = document.getElementById("saved-list")
 
-// const li = document.getElementById("reference")
-
 const randomButton = document.getElementById("RamdomButtom")
+
+const errorMessage = document.getElementById("error-message")
+
+const historyTitle = document.getElementById("WordHistory")
+
+const historyDeleteButton = document.getElementById("delete-history")
 
 const allWords = ['Unique', 'Cacophony', 'Aurora', 'Wonky', 'Elixir', 'Labyrinth', 'Idyllic', 'Melancholy', 'Oblivion', 'Paradox']
 
@@ -32,11 +40,10 @@ const historyLimit = 12
 const randomIndex = Math.floor(Math.random() * allWords.length);
 const randomWord = allWords[randomIndex]
 fetchAndDisplay(randomWord)
-// addToWordHistory(randomWord)
-persistHistoryWord(randomWord)
+// persistHistoryWord(randomWord)
 
 // When the page loads, populate previously saved words from the local databse
-fetch('http://localhost:3000/savedwords')
+fetch(savedWordsUrl)
     .then(res => res.json())
     .then(res => {
         res.forEach(element => {
@@ -45,13 +52,20 @@ fetch('http://localhost:3000/savedwords')
     })
 
 
-fetch("http://localhost:3000/wordhistory")
+fetch(historyUrl)
     .then(res => res.json())
     .then(res => {
         res.forEach(element => {
             addToWordHistory(element.word)
         })
     })
+
+historyDeleteButton.addEventListener("click", (e) => {
+    e.preventDefault()
+    // console.log('i was clicked')
+    deleteHistory()
+    // deleteHistoryLis()
+})
 
 // Search bar submit event listner
 search.addEventListener('submit', (e) => {
@@ -64,8 +78,6 @@ search.addEventListener('submit', (e) => {
     correctCase = word1.charAt(0).toUpperCase() + word1.slice(1);
 
     fetchAndDisplay(correctCase)
-    // addToWordHistory(correctCase)
-    persistHistoryWord(correctCase)
 
     // Resets the search bar
     input.value = ''
@@ -82,7 +94,6 @@ randomButton.addEventListener('click', (e) => {
     const randomIndex = Math.floor(Math.random() * allWords.length);
     const randomWord = allWords[randomIndex]
     fetchAndDisplay(randomWord)
-    // addToWordHistory(randomWord)
     persistHistoryWord(randomWord)
 })
 
@@ -121,7 +132,6 @@ function addDeleteButton(word) {
         fetch(savedWordsUrl)
             .then(res => res.json())
             .then(res => {
-                console.log(res)
                 const searchWord = word.querySelector('p').textContent
                 for (let i = 0; i < res.length; i++) {
                     if (res[i].word === searchWord) {
@@ -140,7 +150,6 @@ function checkIfAlreadyListed(word, arr) {
     let checkValue = false
     arr.forEach((savedWordsArrayItem) => {
         if (word.trim().toUpperCase() === savedWordsArrayItem.trim().toUpperCase()) {
-            // console.log('The word is already saved')
             checkValue = true;
         }
     }
@@ -154,7 +163,6 @@ function renderSavedWord(word) {
     const savedWordp = document.createElement('p')
     savedWordp.innerText = word
     savedWordp.classList.add("saved-word")
-    // savedWord.id = word
     savedWordp.addEventListener('click', (e) => {
         e.preventDefault()
 
@@ -167,7 +175,6 @@ function renderSavedWord(word) {
 }
 
 function postSavedWord(wordSaved) {
-    // console.log('Checking if ' + wordSaved + ' is already saved...')
     if (!(checkIfAlreadyListed(wordSaved, savedWordsArray))) {
         renderSavedWord(wordSaved)
         persistSavedWord(wordSaved)
@@ -204,27 +211,50 @@ function addToWordHistory(historyWord) {
         // while a 13th history node exists, remove it
         while (history.querySelectorAll('li')[historyLimit]) {
             history.querySelectorAll('li')[historyLimit].remove()
-            // stretch goal: Also remove it from db.json
-            // while ( /* there are too many words in the history db */ ) {
-            //     // delete wordhistory/13 from the database
-            //     fetch("http://localhost:3000/wordhistory/" + `${historyLimit + 1}`, {
-            //         method: 'DELETE',
-            //         headers: {
-            //             'Accept': 'application/json',
-            //             'Content-Type': 'application/json'
-            //         }
-            //     }).then(res => res.json())
-            //         .then((res) => {
-            //             // break the loop when there is nothing more to delete
-            //             if (!res) {
-            //             break
-            //             }})
-            // }
         }
         // Remove all elements in the array with indices greater than the history limit
         historyWordsArray.length = historyLimit
     }
 }
+
+function deleteHistoryLis() {
+    const entireHistory = history.querySelectorAll('li')
+    console.log(entireHistory)
+    entireHistory.forEach((element) => {
+        console.log(element)
+        element.remove()
+    })
+    historyWordsArray.length = 0
+    console.log(`history array length is ${historyWordsArray.length}`)
+}
+
+// Stretch goal: add a delete history button that wipes the history in the db
+function deleteHistory() {
+    deleteHistoryLis()
+    fetch(historyUrl)
+        .then(res => res.json())
+        .then(res => {
+            // const searchWord = word.querySelector('li').textContent
+            console.log(`history db length is ${res.length}`)
+            // debugger
+            for (let i = 0; i < res.length; i++) {
+                if (true) {
+                    index = res[i].id;
+                    console.log(index)
+                    // debugger
+                    deleteWordHistory(index)
+                    // debugger
+                }
+
+            }
+        })
+
+}
+
+
+
+
+
 
 
 function fetchAndDisplay(theWord) {
@@ -253,9 +283,10 @@ function fetchAndDisplay(theWord) {
                     renderDefinition(element)
                 })
                 addToWordHistory(theWord)
+                persistHistoryWord(theWord)
             }
             else {
-                document.getElementById("error-message").textContent = `${theWord} is not in the dictionary. Try another word.`
+                errorMessage.textContent = `${theWord} is not in the dictionary. Try another word.`
             }
         })
 }
@@ -263,7 +294,7 @@ function fetchAndDisplay(theWord) {
 
 // Make the saved words list persist locally by posting them to db.json
 // This function should be called when the 'save word' button is clicked
-const savedWordsUrl = "http://localhost:3000/savedwords"
+
 
 function persistSavedWord(word) {
     fetch(savedWordsUrl, {
@@ -276,8 +307,10 @@ function persistSavedWord(word) {
     })
 }
 
+
+
 function persistHistoryWord(word) {
-    fetch("http://localhost:3000/wordhistory", {
+    fetch(historyUrl, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -289,6 +322,17 @@ function persistHistoryWord(word) {
 
 function deleteSavedWord(word) {
     fetch(`${savedWordsUrl}/${word}`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+}
+
+function deleteWordHistory(word) {
+    // debugger
+    fetch(`${historyUrl}/${word}`, {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
