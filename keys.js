@@ -1,1 +1,0 @@
-const key = '?key=b2eaff5c-5497-49e8-8484-9745a09a2b2a'
