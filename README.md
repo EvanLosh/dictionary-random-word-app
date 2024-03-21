@@ -1,7 +1,41 @@
 # dictionary-random-word-app
-Click a button to show a random word with its definitions, synonyms, and antonyms from Free Dictionary's API, and keep a history of the words that have been shown. 
+This front-end web app allows users to enter a word to look up its definition in Merriam-Webster's dictionary API. Click a button to look up a random word. A list of all words returned by the API is saved on a mock database. A list of selected favorite words is also saved. Clicked on a saved word to view it again.
 
-Wireframe link:
+The application was coded using pure Javascript, HTML, and CSS.
+
+# Getting an API key
+
+The user must obtain their own API key here [https://dictionaryapi.com/register/index](https://dictionaryapi.com/register/index). 
+
+
+
+
+# To run the application
+
+Fork and clone this repository. Implement your api key by running the following commands in a terminal in the project directory:
+
+```
+$ touch keys.js
+$ echo "export const apiKey = '<your api key>'" >> keys.js
+```
+
+Replace <your api key> with your api key. Then run the next commands to install json-server, create a database, and start the mock server.
+
+```
+$ npm install -g json-server
+$ touch db.json
+$ json-server --watch db.json --port 8000
+```
+
+Finally, open the index.html file in a web browser
+
+
+
+
+
+
+
+<!-- Wireframe link:
 https://www.figma.com/file/Oo9icJDMEOXXdqx6vITVhz/Email-Template-MVP?type=whiteboard&node-id=0%3A1&t=imCtQsMXsZaKk0qM-1
 
 Wireframe:
@@ -46,7 +80,7 @@ Stretch goal #1 When the page loads, display the word of the day (persists when 
 
 Stretch goal #2 In the saved words list, drag and drop words to reorder them.
 
-Stretch goal #3 Latest 10 words in the history will persist
+Stretch goal #3 Latest 10 words in the history will persist -->
 
 
 

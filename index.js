@@ -1,9 +1,8 @@
+import apiKey from "./keys.js"
+const key = apiKey
+// 
 
-// let's declare some variables
-// API
 const api = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json/'
-const key = '?key=b2eaff5c-5497-49e8-8484-9745a09a2b2a'
-// start json-server WITHOUT the watch option
 const historyUrl = "http://localhost:3000/wordhistory"
 const savedWordsUrl = "http://localhost:3000/savedwords"
 // grab DOM elements
