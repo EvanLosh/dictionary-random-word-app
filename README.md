@@ -3,31 +3,61 @@ This front-end web app allows users to enter a word to look up its definition in
 
 The application was coded using pure Javascript, HTML, and CSS.
 
-# Getting an API key
+# Obtaining an API key
 
-The user must obtain their own API key here [https://dictionaryapi.com/register/index](https://dictionaryapi.com/register/index). 
-
-
+The user must obtain their own key for Merriam Webster's Dictionary API here [https://dictionaryapi.com/register/index](https://dictionaryapi.com/register/index). 
 
 
 # To run the application
 
-Fork and clone this repository. Implement your api key by running the following commands in a terminal in the project directory:
+Install json-server:
+
+`$ npm install -g json-server`
+
+Fork and clone this repository. Create a file called `key.json` in the project directory, 
+
+`$ touch key.json`
+
+and copy the following text into that file:
 
 ```
-$ touch keys.js
-$ echo "export const apiKey = '<your api key>'" >> keys.js
+{
+    "apiKey": [
+        {
+            "key": "<your api key>"
+        }
+    ]
+}
 ```
 
-Replace <your api key> with your api key. Then run the next commands to install json-server, create a database, and start the mock server.
+Replace `<your api key>` with your api key. 
+
+In the project directory, run these shell scripts to create the app database 
+
 
 ```
-$ npm install -g json-server
-$ touch db.json
-$ json-server --watch db.json --port 8000
+$ chmod +x new-db.sh
+$ ./new-db.sh
 ```
 
-Finally, open the index.html file in a web browser
+
+and convert the list of every word in the dictionary from the text file into a JSON database:
+
+```
+$ chmod +x txt-to-json.sh
+$ ./txt-to-json.sh
+```
+
+
+In three different terminals, start these mock servers:
+
+```
+$ json-server db.json --port 8000
+$ json-server key.json --port 8001
+$ json-server every-word-in-the-dictionary.json --port 8002
+```
+
+Finally, open the `index.html` in a web browser.
 
 
 

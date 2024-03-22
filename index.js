@@ -1,10 +1,24 @@
-import apiKey from "./keys.js"
-const key = apiKey
-// 
+// load a key for Merriam Webster's Dictionary API
+let apiKey
+fetch("http://localhost:8001/apiKey")
+    .then(r => r.json())
+    .then(r => {
+        apiKey = r[0].key
+    })
+
+// load the list of all words in the dictionary
+// for use by the Get A Random Word button
+// const allWords = ['Unique', 'Cacophony', 'Aurora', 'Wonky', 'Elixir', 'Labyrinth', 'Idyllic', 'Melancholy', 'Oblivion', 'Paradox']
+let allWords
+fetch("http://localhost:8002/every-word-in-the-dictionary")
+    .then(r => r.json())
+    .then(r => {
+        allWords = r.words
+    })
 
 const api = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json/'
-const historyUrl = "http://localhost:3000/wordhistory"
-const savedWordsUrl = "http://localhost:3000/savedwords"
+const historyUrl = "http://localhost:8000/wordhistory"
+const savedWordsUrl = "http://localhost:8000/savedwords"
 // grab DOM elements
 const history = document.getElementById("history-list")
 const wordElement = document.getElementById("WordLocation")
@@ -18,18 +32,16 @@ const randomButton = document.getElementById("RamdomButtom")
 const errorMessage = document.getElementById("error-message")
 const historyTitle = document.getElementById("WordHistory")
 const historyDeleteButton = document.getElementById("delete-history")
-// A list of words for the random word function
-const allWords = ['Unique', 'Cacophony', 'Aurora', 'Wonky', 'Elixir', 'Labyrinth', 'Idyllic', 'Melancholy', 'Oblivion', 'Paradox']
-// keep a list of words in the history and saved lists
+// keep a list in memory of words in the history and saved lists
 const savedWordsArray = []
 const historyWordsArray = []
-// Specify a limit for the length of the history section
+// Specify a max length of the history section
 const historyLimit = 12
 
 // When the page loads, display a random word, add it to history, and record it in db.json
-const randomIndex = Math.floor(Math.random() * allWords.length);
-const randomWord = allWords[randomIndex]
-fetchAndDisplay(randomWord)
+// const randomIndex = Math.floor(Math.random() * allWords.length);
+// const randomWord = allWords[randomIndex]
+// fetchAndDisplay(randomWord)
 
 // When the page loads, populate previously saved words from db.json
 fetch(savedWordsUrl)
@@ -249,8 +261,10 @@ function deleteHistory() {
 
 // gets a word object from the dictionary and process it
 function fetchAndDisplay(theWord) {
+    console.log('fetchAndDisplay was called.')
+    debugger
     let wordIsInTheDictionary = false
-    let url = `${api}${theWord}${key}`
+    let url = `${api}${theWord}${apiKey}`
     fetch(url)
         .then(res => res.json())
         .then(data => {
