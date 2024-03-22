@@ -262,7 +262,6 @@ function deleteHistory() {
 // gets a word object from the dictionary and process it
 function fetchAndDisplay(theWord) {
     console.log('fetchAndDisplay was called.')
-    debugger
     let wordIsInTheDictionary = false
     let url = `${api}${theWord}${apiKey}`
     fetch(url)
